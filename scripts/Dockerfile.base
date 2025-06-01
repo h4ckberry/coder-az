@@ -31,6 +31,12 @@ RUN ARCH="$(arch)"; if [ "${ARCH}" == "x86_64" ]; then ARCH="amd64"; elif [ "${A
 		rm -f /tmp/terraform.zip && \
 		chmod +x /usr/local/bin/terraform && \
 		terraform --version
+
+RUN apk add --no-cache python3 py3-pip && \
+    pip install --no-cache-dir azure-cli && \
+    apk del python3 py3-pip && \
+    rm -rf /var/cache/apk/* /tmp/*
+
 USER 1000:1000
 ENV HOME=/home/coder
 ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt
